@@ -1,7 +1,8 @@
-import sublime, sublime_plugin
-import os
+import sublime, sublime_plugin, functools
+import os,time
 
 class ChangeThemeCommand(sublime_plugin.TextCommand):
+
 	def findThemesInPath(self, themesName, path, go):
 		files = os.listdir(path)
 		for f in files:
@@ -22,13 +23,14 @@ class ChangeThemeCommand(sublime_plugin.TextCommand):
 		return themesName
 
 	def changeColorful(self, themesName):
-		if themesName == []:
-			themesName = self.getThemesName()
-		newTheme = themesName.pop()
 		s = sublime.load_settings("Preferences.sublime-settings")
+		currentTheme = s.get('color_scheme')
+		index = themesName.index(currentTheme)
+		newTheme = themesName[(index+1)%len(themesName)] 
 		s.set('color_scheme', newTheme)
 		sublime.save_settings("Preferences.sublime-settings")
-		sublime.set_timeout(functools.partial(self.changeColorful(themesName)), 1*60*1000)
+		#callback = functools.partial(self.changeColorful(themesName))
+
 	
 	def run(self, edit):
 		self.changeColorful(self.getThemesName())
