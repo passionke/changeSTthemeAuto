@@ -1,7 +1,7 @@
 import sublime, sublime_plugin, functools
 import os,time
 
-class ChangeThemeCommand(sublime_plugin.TextCommand):
+class SwitchthemeCommand(sublime_plugin.TextCommand):
 
 	def findThemesInPath(self, themesName, path, go):
 		files = os.listdir(path)

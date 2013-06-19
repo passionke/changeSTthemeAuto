@@ -1,0 +1,6 @@
+[
+	{
+		"keys": ["command+option+r"],
+		"command": "switchtheme"
+	}
+]
